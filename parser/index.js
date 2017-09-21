@@ -63,7 +63,7 @@ const extactMessage = (thing) => {
   if (typeof thing === 'string') return
   thing.message = ''
   if (thing['_']) {
-    thing.message = thing['_']
+    thing.message = '<b>' + thing['$'].message + '</b><br/>' + thing['_']
     delete thing['_']
   }
 }
