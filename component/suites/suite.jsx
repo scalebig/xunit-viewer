@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import Properties from './properties'
 import Test from './test'
 import iconMap from '../icon-map'
@@ -10,9 +10,11 @@ let Suite = ({
   properties = {},
   tests = [],
   onToggle,
+  onToggleRaw,
   collapsed,
   hidden,
-  suites = []
+  suites = [],
+  time
 }) => {
   suites = suites.map(suite => {
     return <Suite
@@ -40,14 +42,17 @@ let Suite = ({
     {tests.map(test =>
       <Test
         onToggle={onToggle}
+        onToggleRaw={onToggleRaw}
         collapsed={collapsed}
         key={`test-${test._uuid}`}
         uuid={test._uuid}
         status={test.status}
         name={test.name}
         message={test.message}
-          />
-      )}
+        raw={test.raw}
+        time={test.time}
+      />
+    )}
   </div>
 
   if (Object.keys(properties).length === 1 && suites.length === 0 && tests.length === 0) Content = null
@@ -56,17 +61,16 @@ let Suite = ({
     <header
       className={`card-header is-${status}`}
       onClick={() => {
-        onToggle({type: 'suites', uuid})
+        onToggle({ type: 'suites', uuid })
       }}
-      >
+    >
       <p className='card-header-title'>
         {iconMap[status]}
-        {name}
+        <span className='card-header-title-name'>{name}</span>
+        {time ? <i className='card-header-title-time'>({time})</i> : null}
       </p>
       <a className='card-header-icon'>
-        <span className='icon'>
-          <i className='fa fa-angle-down' />
-        </span>
+        {iconMap.angleDown}
       </a>
     </header>
     {Content}
@@ -76,10 +80,12 @@ let Suite = ({
 Suite.propTypes = {
   uuid: PropTypes.string.isRequired,
   name: PropTypes.string,
+  time: PropTypes.string,
   status: PropTypes.string,
   properties: PropTypes.object,
   tests: PropTypes.array,
   onToggle: PropTypes.func.isRequired,
+  onToggleRaw: PropTypes.func.isRequired,
   collapsed: PropTypes.object.isRequired,
   hidden: PropTypes.object.isRequired,
   suites: PropTypes.array

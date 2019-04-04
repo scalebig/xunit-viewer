@@ -6,6 +6,15 @@
   --unknown: #3273DC;
 }
 
+.card-header-icon .icon {
+  width: 20px;
+  transform: translateY(-5px);
+}
+
+.is-collapsed .card-header-icon .icon {
+  transform: rotate(180deg) translateY(0px);
+}
+
 .suites {
   & .fa {
     padding-right: 5px;
@@ -106,4 +115,39 @@
     }
   }
 
+}
+
+.card-header-title {
+  word-break: break-all;
+}
+
+.card-header-title-time {
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+.test-toggle {
+  margin-bottom: 8px;
+
+  & input {
+    height: 16px;
+    vertical-align: middle;
+  }
+
+  & label {
+    margin-left: 8px;
+  }
+
+  & label:hover,
+  & input:hover {
+    cursor: pointer;
+  }
+}
+
+.test-message,
+.test-code {
+  white-space: pre-wrap;
+  overflow: auto;
+  display: block;
+  padding: 20px;
 }
